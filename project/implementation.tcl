@@ -19,12 +19,12 @@ open_project [file join $project_directory $project_name]
 #
 # Run Synthesis
 #
-launch_runs synth_1
+launch_runs synth_1 -job 4
 wait_on_run synth_1
 #
 # Run Implementation
 #
-launch_runs impl_1
+launch_runs impl_1 -job 4
 wait_on_run impl_1
 open_run    impl_1
 report_utilization -file [file join $project_directory "project.rpt" ]
