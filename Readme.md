@@ -10,6 +10,12 @@ FPGA-SoC-Linux example(1) binary and project and test code for PYNQ-Z1
 
 ## Install
 
+### Install python3-numpy
+
+```
+shell# apt-get install python3-numpy
+```
+
 ### Download FPGA-SoC-Linux-Example-1-PYNQ-Z1
 
 ```
