@@ -7,7 +7,7 @@ set project_name            "project"
 set board_part              [get_board_parts -quiet -latest_file_version "*pynq*"]
 set device_part             "xc7z020clg400-1"
 set design_bd_tcl_file      [file join $project_directory "design_1_bd.tcl"  ]
-set design_pin_xdc_file     [file join $project_directory "design_1_pin.xdc" ]
+lappend constrs_file_list   [file join $script_directory  "design_1_pin.xdc" ]
 lappend ip_repo_path_list   [file join $project_directory ".." "FPGA-SoC-Linux-Example-1-Base" "LED_AXI"   "target" "xilinx" "ip"]
 lappend ip_repo_path_list   [file join $project_directory ".." "FPGA-SoC-Linux-Example-1-Base" "PUMP_AXI4" "target" "xilinx" "ip"]
 #
