@@ -16,6 +16,7 @@ array set available_vivado_version_list {"2016.4"   "ok"}
 array set available_vivado_version_list {"2017.1"   "ok"}
 array set available_vivado_version_list {"2017.2"   "ok"}
 array set available_vivado_version_list {"2017.2.1" "ok"}
+array set available_vivado_version_list {"2025.1"   "ok"}
 set available_vivado_version [array names available_vivado_version_list]
 set current_vivado_version   [version -short]
 
@@ -142,9 +143,11 @@ proc create_root_design { parentCell } {
      set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
   }
   if { [string equal [get_property "board_part" [current_project]] ""] == 0 } {
+     puts "INFO: apply_bd_automation -rule xilinx.com:bd_rule:processing_system7"
      apply_bd_automation -rule "xilinx.com:bd_rule:processing_system7" -config {make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" } $processing_system7_0
      set_property -dict [ list CONFIG.PCW_IRQ_F2P_INTR {1} CONFIG.PCW_USE_FABRIC_INTERRUPT {1} CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {125.0} ] $processing_system7_0
   } else {
+     puts "INFO: import_board_preset pynqz1_zynq_preset.tcl"
      set import_board_preset [file join [file dirname [info script]] "pynqz1_zynq_preset.tcl"]
      if { [file exists $import_board_preset] == 0 } {
         puts "ERROR: Can not Read board preset file = $import_board_preset."
@@ -177,7 +180,7 @@ proc create_root_design { parentCell } {
   set proc_sys_reset_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0 ]
 
   # Create instance: pump_axi3_to_axi3_0, and set properties
-  set pump_axi3_to_axi3_0 [ create_bd_cell -type ip -vlnv ikwzm:pipework:pump_axi3_to_axi3_v1_0:1.0 pump_axi3_to_axi3_0 ]
+  set pump_axi3_to_axi3_0 [ create_bd_cell -type ip -vlnv ikwzm:pipework:pump_axi3_to_axi3:2.4 pump_axi3_to_axi3_0 ]
   set_property -dict [ list CONFIG.BUF_DEPTH {8} CONFIG.C_ADDR_WIDTH {12} CONFIG.C_ID_WIDTH {12} CONFIG.I_AUSER_WIDTH {5} CONFIG.I_DATA_WIDTH {64} CONFIG.I_ID_WIDTH {1} CONFIG.I_MAX_XFER_SIZE {7} CONFIG.M_AUSER_WIDTH {5} CONFIG.M_AXI_ID {0} CONFIG.M_DATA_WIDTH {64} CONFIG.M_ID_WIDTH {1} CONFIG.O_AUSER_WIDTH {5} CONFIG.O_AXI_ID {1} CONFIG.O_DATA_WIDTH {64} CONFIG.O_ID_WIDTH {1} CONFIG.O_MAX_XFER_SIZE {7}  ] $pump_axi3_to_axi3_0
 
   # Create interface connections
