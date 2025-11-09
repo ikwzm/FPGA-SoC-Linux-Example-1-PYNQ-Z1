@@ -17,6 +17,7 @@ array set available_vivado_version_list {"2017.1"   "ok"}
 array set available_vivado_version_list {"2017.2"   "ok"}
 array set available_vivado_version_list {"2017.2.1" "ok"}
 array set available_vivado_version_list {"2025.1"   "ok"}
+array set available_vivado_version_list {"2025.1.1" "ok"}
 set available_vivado_version [array names available_vivado_version_list]
 set current_vivado_version   [version -short]
 
@@ -134,7 +135,6 @@ proc create_root_design { parentCell } {
 
   # Set parent object as current
   current_bd_instance $parentObj
-
 
   # Create instance: processing_system7_0, and set properties
   if { [string equal "2014.2"  [version -short] ] == 1 } {
